@@ -45,11 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
           .then((value) async {
         userModel = UserModel.fromMap(value.data()!);
         // save user id in cashHelper
-        await CacheHelper.put(
-            key: 'id', value: value.data()!['id']); // i cache user id to use
-        // save role in cashHelper
-        await CacheHelper.put(
-            key: 'role', value: userModel!.role);
+
         emit(UserLoginSuccess(
           approveUser: userModel!.approveUser,
             role: userModel!.role,

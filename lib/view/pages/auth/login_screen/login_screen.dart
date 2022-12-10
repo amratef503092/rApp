@@ -129,6 +129,11 @@ class _LoginPageState extends State<LoginPage> {
               // user
               if (state.approveUser) {
                 if (state.role == "3") {
+                  CacheHelper.put(
+                      key: 'id', value: state.userID); // i cache user id to use
+                  // save role in cashHelper
+                  CacheHelper.put(
+                      key: 'role', value: state.role);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -136,6 +141,11 @@ class _LoginPageState extends State<LoginPage> {
                       (route) => false);
                 } else {
                   // user
+                   CacheHelper.put(
+                      key: 'id', value: state.userID); // i cache user id to use
+                  // save role in cashHelper
+                   CacheHelper.put(
+                      key: 'role', value: state.role);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
