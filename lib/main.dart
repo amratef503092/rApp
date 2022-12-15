@@ -29,11 +29,14 @@ void printHello() {
 }
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await AndroidAlarmManager.initialize();
+
+
+  // i used this package to initialize Notification
  await AwesomeNotifications().initialize(
       null,
       [
@@ -56,23 +59,25 @@ void main() async {
       ],
       debug: false
   );
+ // i used this package to initialize Audio Player sound
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  await DioHelper.init();
+  // await DioHelper.init();
   await CacheHelper.init();
+  // here use BlocObserver to see the state of the bloc in application
   Bloc.observer = MyBlocObserver();
+
   runApp(const MyApp());
-  final int helloAlarmID = 0;
+  // final int helloAlarmID = 0;
   // await AndroidAlarmManager.periodic(
   //     const Duration(minutes: 1), helloAlarmID, printHello);
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -80,6 +85,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    // i use screen util to make the application
+    // responsive in all mobile phone sizes
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       builder: (context, child) {
@@ -97,9 +104,10 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) =>
             NoteficationAssowmeCubit()
               ..oninit()),
-
           ],
-          child: BlocConsumer<NoteficationAssowmeCubit, NoteficationAssowmeState>(
+          child: BlocConsumer<
+              NoteficationAssowmeCubit,
+              NoteficationAssowmeState>(
             listener: (context, state) {
               // TODO: implement listener
             },

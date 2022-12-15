@@ -43,8 +43,8 @@ class _ApproveUserState extends State<ApproveUser> {
                               style: const TextStyle(color: Colors.black),
                             ),
                             trailing: ElevatedButton(
-                                onPressed: () {
-                                  FirebaseFirestore.instance
+                                onPressed: () async{
+                               await   FirebaseFirestore.instance
                                       .collection('users')
                                       .doc(snapshot.data!.docs[index].id)
                                       .update({'approveUser': true});

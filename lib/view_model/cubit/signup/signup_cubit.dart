@@ -27,27 +27,29 @@ class SignupCubit extends Cubit<SignupState> {
     bool phoneFound = false;
     // register function start
     emit(RegisterLoadingState());
-    await FirebaseFirestore.instance.collection('users').get().then((value) {
+
+    await FirebaseFirestore.instance.collection('users')
+        .get().
+    then((value) {
       for (var element in value.docs) {
         if(element.data()['phone']==phone){
           phoneFound = true;
-          break;
-        }
+          break;}
       }
     });
     if(phoneFound)
     {
       emit(PhoneISNotUnique());
-    }else{
+    }
+    else{
       await FirebaseAuth
           .instance // firebase auth this library i use it to register i send request Email and password
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        print(phone);
-
+          .createUserWithEmailAndPassword(
+          email: email, password: password
+      ).then((value) async {
         // if register successful i will add user data to firebase
         user = UserModel(
-          approveUser: (role == '1') ?true: false,
+          approveUser: (role == '1') ? true: false,
           age: age,
           ban: false,
           gender: gender,

@@ -268,8 +268,7 @@ class _FiltartionByFilmNameState extends State<FiltartionByFilmName> {
                                                     (
                                                     receiverId: userModelList[index].id,
                                                     receiverName: userModelList[index].name,
-                                                    cinema: true,
-                                                    cinemaID: FirebaseAuth.instance.currentUser!.uid,
+                                                    adminID: FirebaseAuth.instance.currentUser!.uid,
                                                     userID:  userModelList[index].id,);
                                                 },));
                                               },
@@ -669,8 +668,7 @@ class _FiltartionByFilmNameState extends State<FiltartionByFilmName> {
                                                     (
                                                     receiverId: userModelList[index].id,
                                                     receiverName: userModelList[index].name,
-                                                    cinema: true,
-                                                    cinemaID: FirebaseAuth.instance.currentUser!.uid,
+                                                    adminID: FirebaseAuth.instance.currentUser!.uid,
                                                     userID:  userModelList[index].id,);
                                                 },));
                                               },

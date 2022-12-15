@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p3/database/local/cache_helper.dart';
 import 'package:p3/view_model/notefication.dart';
 import '../../../../constants/validator.dart';
@@ -25,7 +26,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
   bool showPassword = true;
 
@@ -45,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
             CacheHelper.put(key: 'role', value:state.role);
 
           } else if (state is UserLoginFailed) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
               content: Text(state.message),
               backgroundColor: Colors.red,
             ));
@@ -61,6 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                   Align(
+                     alignment: Alignment.topRight,
+                     child: Text("Treatment Reminder" ,
+                       style:  GoogleFonts.salsa(fontSize: 30.sp,
+                           fontWeight: FontWeight.bold),),
+                   ),
                       Header(pageName: "Login"),
                       SizedBox(
                         height: 46.h,
@@ -125,9 +132,12 @@ class _LoginPageState extends State<LoginPage> {
             child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             // TODO: implement listener
-            if (state is UserLoginSuccess) {
+            if (state is UserLoginSuccess)
+            {
               // user
-              if (state.approveUser) {
+              if (state.approveUser)
+              {
+                // user role 3
                 if (state.role == "3") {
                   CacheHelper.put(
                       key: 'id', value: state.userID); // i cache user id to use
@@ -172,11 +182,10 @@ class _LoginPageState extends State<LoginPage> {
                           passwordController.text.trim().isEmpty) {
                         return;
                       }
-
                       myCubit.login(
-                          email: emailController.text.trim(),
+                          email:    emailController.text.trim(),
                           password: passwordController.text,
-                          context: context);
+                          );
                     });
           },
         )),

@@ -8,7 +8,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:meta/meta.dart';
 
 import '../../view/pages/users/ViewDetailes.dart';
-
 part 'notefication_assowme_state.dart';
 
 class NoteficationAssowmeCubit extends Cubit<NoteficationAssowmeState> {
@@ -65,10 +64,10 @@ class NoteficationAssowmeCubit extends Cubit<NoteficationAssowmeState> {
     AwesomeNotifications().setListeners(
         onActionReceivedMethod: (ReceivedAction receivedAction) async {
       print("Action received");
-
       print(id);
-      Get.to(() => ViewDetailes(
-            id: receivedAction.payload!['id'].toString(),
+      Get.to(() => ViewDetailes
+        (
+        id: receivedAction.payload!['id'].toString(),
           ));
       player.stop();
     }, onNotificationDisplayedMethod:

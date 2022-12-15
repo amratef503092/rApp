@@ -175,7 +175,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                               color: Colors.black,
                             ),
                           )),
-                      (authCubit.adminData.isEmpty)?DataEmptyWidget():Expanded(
+                      (authCubit.adminData.isEmpty)?const DataEmptyWidget():Expanded(
                         child: ListView.builder(
                             itemCount: authCubit.adminData.length,
                             itemBuilder: (context, index) {
@@ -507,7 +507,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
 );
   }
 }
-
+// here i send url to access whatsapp and i send phone number to access phone call
 Future<void> _launchInBrowser(Uri url) async {
   if (!await launchUrl(
     url,

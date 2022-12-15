@@ -189,7 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               hint: 'phone',
                               iconData: Icons.phone,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             // creat drop down button
@@ -230,7 +230,8 @@ class _SignUpPageState extends State<SignUpPage> {
             child: BlocConsumer<SignupCubit, SignupState>(
               listener: (context, state) {
                 // TODO: implement listener
-                if(state is RegisterSuccessfulState){
+                if(state is RegisterSuccessfulState)
+                {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Register Successful'),
@@ -261,7 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 CustomButtonOne(
                     buttonTitle: "Sign up",
                     onClick: () async{
-
+                      // i used object fromKey  check  user Enter data in all text fields
                       if (formKey.currentState!.validate()) {
                         // send  data to function
                         myCubit.registerUser(email: emailController.text.trim()

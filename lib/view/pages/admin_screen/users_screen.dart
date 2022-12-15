@@ -40,7 +40,7 @@ class _CustomerScreenAdminState extends State<CustomerScreenAdmin> {
           appBar: AppBar(
             title: const Text("Users"),
           ),
-          body: (state is GetAllCinemaOwnerLoadingState)
+          body: (state is GetAllUsersLoadnig)
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -279,8 +279,7 @@ class _CustomerScreenAdminState extends State<CustomerScreenAdmin> {
                                                                         .userModelList[
                                                                             index]
                                                                         .name,
-                                                                cinema: true,
-                                                                cinemaID:
+                                                                adminID:
                                                                     FirebaseAuth
                                                                         .instance
                                                                         .currentUser!

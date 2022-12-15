@@ -3,25 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-
 import '../../constants/constants.dart';
 import '../../view_model/cubit/auth/auth_cubit.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen(
       {Key? key,
-        required this.receiverId,
-        required this.receiverName,
-        required this.cinema,
-        required this.cinemaID,
-        required this.userID})
+        required this.receiverId,   // id Fatima
+        required this.receiverName, // fatima
+        required this.adminID,     // id fatima
+        required this.userID})     // user id
       : super(key: key);
   String receiverId;
   String receiverName;
   String userID;
-  String cinemaID;
-  bool cinema;
+  String adminID;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -40,11 +36,11 @@ class _ChatScreenState extends State<ChatScreen> {
           stream: FirebaseFirestore.instance
               .collection('Messages')
               .where('User', isEqualTo: widget.userID)
-              .where('Admin', isEqualTo: widget.cinemaID)
-              .orderBy('date')
-              .snapshots(),
+              .where('Admin', isEqualTo: widget.adminID)
+              .orderBy('date').snapshots(),
+
           builder: (context, snapshot) {
-            print(widget.cinema);
+            // print(widget.cinema);
             if (snapshot.connectionState == ConnectionState.waiting)
             {
               return const Center(child: CircularProgressIndicator());
@@ -93,7 +89,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 if (messageController.text == '') {
                   return;
                 } else {
-                  await FirebaseFirestore.instance.collection('Messages').add({
+                  await FirebaseFirestore.instance.collection('Messages').
+                  add({
                     'message': messageController.text,
                     'userID': FirebaseAuth.instance.currentUser!.uid,
                     "receiverId": widget.receiverId,
@@ -102,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     "SenderID": FirebaseAuth.instance.currentUser!.uid,
                     'date': DateTime.now().toString(),
                     "User": widget.userID,
-                    "Admin": widget.cinemaID,
+                    "Admin": widget.adminID,
                   });
                   messageController.clear();
 

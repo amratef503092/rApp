@@ -194,8 +194,7 @@ class _HomeAdminUserScreenState extends State<HomeAdminUserScreen> {
                                         return ChatScreen(
                                             receiverId:   authCubit.adminData[index].id,
                                             receiverName: authCubit.adminData[index].name,
-                                            cinema:   false,
-                                            cinemaID:      authCubit.adminData[index].id,
+                                            adminID:      authCubit.adminData[index].id,
                                             userID:     FirebaseAuth.instance.currentUser!.uid
                                         );
                                       },));

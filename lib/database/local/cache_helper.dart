@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //CacheHelper That's Connect and Talk to local database.
 class CacheHelper {
+
   static late SharedPreferences sharedPreferences;
 
   //Here The Initialize of cache .
@@ -11,12 +12,13 @@ class CacheHelper {
 
 // this fun to put data in local data base using key
   static Future<bool> put({
-    required String key,
+    required  String key,
     required dynamic value,
   }) async {
     if (value is String) {
       return await sharedPreferences.setString(key, value);
-    } else if (value is bool) {
+    } else if (value is bool)
+    {
       return await sharedPreferences.setBool(key, value);
     }else {
       return await sharedPreferences.setInt(key, value);
@@ -30,8 +32,9 @@ class CacheHelper {
     return sharedPreferences.get(key);
   }
 
-// remove data using specific key
-  static Future<bool> removeData({required key}) async {
+  // remove data using specific key
+  static Future<bool> removeData({required key}) async
+  {
     return await sharedPreferences.remove(key);
   }
 

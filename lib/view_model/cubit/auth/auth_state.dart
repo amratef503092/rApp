@@ -130,16 +130,16 @@ class GetUrlSuccessfulState extends AuthState{
   String message;
   GetUrlSuccessfulState(this.message);
 }
-class GetAllCinemaOwnerLoadingState extends AuthState{
-  GetAllCinemaOwnerLoadingState();
+class GetAllUsersLoadnig extends AuthState{
+  GetAllUsersLoadnig();
 }
 class GetAllCinemaOwnerSuccessfulState extends AuthState{
   String message;
   GetAllCinemaOwnerSuccessfulState(this.message);
 }
-class GetAllCinemaOwnerErrorState extends AuthState{
+class GetAllUserErrorState extends AuthState{
   String message;
-  GetAllCinemaOwnerErrorState(this.message);
+  GetAllUserErrorState(this.message);
 }
 // delete service end
 

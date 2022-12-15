@@ -27,9 +27,9 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
   TextEditingController timeOfToke = TextEditingController();
   DateTimeRange? selectedTime;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
-
     // TODO: implement dispose
     titleController.dispose();
     amoutController.dispose();
@@ -37,6 +37,7 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
     timeOfToke.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     return BlocConsumer<ControllerCubit, AuthState>(
       listener: (context, state) {
@@ -46,7 +47,7 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
               const SnackBar(content: Text("Treatment Added Successfully")));
           ControllerCubit.get(context).getTreatmentData();
           notivication(
-            idNotification:Random().nextInt(10000),
+            idNotification: Random().nextInt(10000),
             id: state.id,
             durationPerDay: durationPerDay,
             timeOfToke: timeOfToke,
@@ -63,7 +64,6 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
           onWillPop: () async {
             ControllerCubit.get(context).baseName = null;
             ControllerCubit.get(context).file = null;
-
 
             return true;
           },
@@ -87,7 +87,9 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                             ? CircleAvatar(
                                 radius: 100,
                                 backgroundImage: FileImage(io.File(
-                                    ControllerCubit.get(context).imageTreatment!.path)),
+                                    ControllerCubit.get(context)
+                                        .imageTreatment!
+                                        .path)),
                               )
                             : const CircleAvatar(
                                 radius: 100,
@@ -111,10 +113,12 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                                     : CustomButton(
                                         disable: true,
                                         size: Size(150.w, 40.h),
-                                        widget: const Text("Select from gallery"),
+                                        widget:
+                                            const Text("Select from gallery"),
                                         function: () {
                                           ControllerCubit.get(context)
-                                              .pickImageGallaryTreatment(context);
+                                              .pickImageGallaryTreatment(
+                                                  context);
                                         },
                                       ),
                                 (state is UploadImageStateLoading)
@@ -124,10 +128,12 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                                     : CustomButton(
                                         size: Size(150.w, 40.h),
                                         disable: true,
-                                        widget: const Text("Select from camera"),
+                                        widget:
+                                            const Text("Select from camera"),
                                         function: () {
                                           ControllerCubit.get(context)
-                                              .pickImageCameraTreatment(context);
+                                              .pickImageCameraTreatment(
+                                                  context);
                                         },
                                       ),
                               ],
@@ -148,7 +154,9 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                           height: 20.h,
                         ),
                         (ControllerCubit.get(context).file != null)
-                            ? Text(ControllerCubit.get(context).baseName.toString())
+                            ? Text(ControllerCubit.get(context)
+                                .baseName
+                                .toString())
                             : const Text("No Sound Selected"),
                         SizedBox(
                           height: 20.h,
@@ -163,6 +171,12 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                               }
                               return null;
                             }),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: const Text("Amount of Dose")),
                         CustomTextField(
                             controller: amoutController,
                             textInputType: TextInputType.number,
@@ -180,6 +194,9 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                         const SizedBox(
                           height: 10,
                         ),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: const Text("Duration Per Day")),
                         CustomTextField(
                             textInputType: TextInputType.number,
                             controller: durationPerDay,
@@ -199,19 +216,28 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
                         ),
                         ElevatedButton(
                             onPressed: () async {
-                              if(ControllerCubit.get(context).imageTreatment == null){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Please select Image"),  backgroundColor: Colors.red,) );
+                              if (ControllerCubit.get(context).imageTreatment ==
+                                  null) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Please select Image"),
+                                  backgroundColor: Colors.red,
+                                ));
                               }
-                              if(ControllerCubit.get(context).file == null){
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Please select sound"),  backgroundColor: Colors.red,) );
+                              if (ControllerCubit.get(context).file == null) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Please select sound"),
+                                  backgroundColor: Colors.red,
+                                ));
                               }
                               if (formKey.currentState!.validate() &&
                                   ControllerCubit.get(context).file != null) {
-                                ControllerCubit.get(context).uploadFileTreatment(
+                                ControllerCubit.get(context)
+                                    .uploadFileTreatment(
                                   title: titleController.text,
-                                  file: ControllerCubit.get(context).imageTreatment!,
+                                  file: ControllerCubit.get(context)
+                                      .imageTreatment!,
                                   amount: int.parse(amoutController.text),
                                   context: context,
                                   duration: int.parse(durationPerDay.text),
@@ -266,7 +292,10 @@ class _AddTeratMentScreenState extends State<AddTeratMentScreen> {
     //
     // sound,
     // id,
-    NoteficationAssowmeCubit.get(context).notification(
+
+    NoteficationAssowmeCubit.get(context).
+    notification
+      (
       id: id,
       title: title,
       body: body,

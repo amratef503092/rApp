@@ -24,9 +24,7 @@ class ControllerCubit extends Cubit<AuthState> {
   static ControllerCubit get(context) => BlocProvider.of<ControllerCubit>(context);
   UserModel? userModel;
   io.File? file;
-
   FilePickerResult? filePicker;
-
   String? baseName;
 
   void pickSound() async {
@@ -51,9 +49,11 @@ class ControllerCubit extends Cubit<AuthState> {
         .collection('treatments')
         .doc(id)
         .delete()
-        .then((value) {
+        .then((value)
+    {
       emit(DeleteTreatmentStateSuccessful());
-    }).catchError((error) {
+    }).catchError((error)
+    {
       emit(DeleteTreatmentStateError());
     });
   }
@@ -141,9 +141,9 @@ class ControllerCubit extends Cubit<AuthState> {
   }
 
   List<UserModel> userModelList = [];
-
+// here i get all users from firebase and put it in list
   Future<void> getCustomerUSer() async {
-    emit(GetAllCinemaOwnerLoadingState());
+    emit(GetAllUsersLoadnig());
     userModelList = [];
     await FirebaseFirestore.instance
         .collection('users')
@@ -152,13 +152,12 @@ class ControllerCubit extends Cubit<AuthState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
-        print("${element.data()}iiodaosidiojasdjio");
         userModelList.add(UserModel.fromMap(element.data()));
       }
 
       emit(GetAllCustomerScreenSuccessful());
     }).catchError((error) {
-      emit(GetAllCinemaOwnerErrorState('some thing Error'));
+      emit(GetAllUserErrorState('some thing Error'));
     });
   }
 
@@ -270,7 +269,7 @@ class ControllerCubit extends Cubit<AuthState> {
   Future<void> getAdmin() async {
     emit(GetAdminsStateLoading('loading'));
     adminData = [];
-    FirebaseFirestore.instance
+  await  FirebaseFirestore.instance
         .collection('users')
         .where(
           'role',
@@ -278,20 +277,19 @@ class ControllerCubit extends Cubit<AuthState> {
         )
         .get()
         .then((value) {
-      print(value.docs.length);
-      print("Amr pjpaodjfpadkapodkpaosdo");
       for (var element in value.docChanges) {
-        if (element.doc.data()!['id'] == CacheHelper.get(key: 'id')) {
-          print('same');
+        if (element.doc.data()!['id'] == CacheHelper.get(key: 'id'))
+        {
+          // do not add in list
         } else {
           adminData.add(UserModel.fromMap(element.doc.data()!));
         }
       }
-      emit(GetAdminsStateSuccessful('loading'));
+      emit(GetAdminsStateSuccessful('successful'));
     }).catchError((onError) {
       print(onError.toString());
       print('Amr');
-      emit(GetAdminsStateError('loading'));
+      emit(GetAdminsStateError('Error'));
     });
   }
 
@@ -412,14 +410,14 @@ class ControllerCubit extends Cubit<AuthState> {
           content: Text('No file was selected'),
         ),
       );
-
       return;
     }
 
     UploadTask uploadTask;
 
     // Create a Reference to the file
-    Reference ref = FirebaseStorage.instance.ref().child('/${file.name}');
+    Reference ref =
+    FirebaseStorage.instance.ref().child('/${file.name}');
 
     final metadata = SettableMetadata(
       contentType: 'image/jpeg',
@@ -432,6 +430,7 @@ class ControllerCubit extends Cubit<AuthState> {
       if (kDebugMode) {
         print('Amr2');
       }
+
       ref.putFile(io.File(file.path), metadata).then((p0) => {
             ref.getDownloadURL().then((value) async {
               // here modify the profile pic
@@ -581,7 +580,8 @@ class ControllerCubit extends Cubit<AuthState> {
     required int duration,
   }) async {
     emit(CreateTreatmentStateLoading());
-    TreatMentModel treatMentModel = TreatMentModel(
+    TreatMentModel treatMentModel = 
+    TreatMentModel(
       title: title,
       startTime: DateTime.now().toString(),
       lastTimeTake: DateTime.now().toString(),
@@ -618,10 +618,13 @@ class ControllerCubit extends Cubit<AuthState> {
     emit(GetTreatmentDataStateLoading());
     FirebaseFirestore.instance
         .collection('treatments')
-        .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).where('amount', isGreaterThan: 0)
+        .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).
+         where('amount', isGreaterThan: 0)
         .get()
-        .then((value) {
-      for (var element in value.docs) {
+        .then((value)
+    {
+      for (var element in value.docs)
+      {
         print(element.data());
         treatMentModel.add(TreatMentModel.fromMap(element.data()));
       }

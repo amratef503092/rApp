@@ -30,9 +30,10 @@ class Header extends StatelessWidget {
           child: Text(
             pageName,
             style: GoogleFonts.salsa(
-                fontSize: 38.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
-                color: Colors.black),
+                color: Colors.black
+            ),
           ),
         ),
       ],
